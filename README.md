@@ -1,11 +1,11 @@
 # Demoblaze E2E Testing Framework
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/fashion-e2e-playwright/actions)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/rbcausing/fashion-e2e-playwright/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 [![Playwright Version](https://img.shields.io/badge/playwright-1.56.0-blue.svg)](https://playwright.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-blue.svg)](https://www.typescriptlang.org/)
-[![Tests](https://img.shields.io/badge/tests-4%20passing-brightgreen.svg)](https://github.com/yourusername/fashion-e2e-playwright/actions)
+[![Tests](https://img.shields.io/badge/tests-4%20passing-brightgreen.svg)](https://github.com/rbcausing/fashion-e2e-playwright/actions)
 [![Browsers](https://img.shields.io/badge/browsers-3%20supported-blue.svg)](https://playwright.dev/docs/browsers)
 
 A comprehensive end-to-end testing framework for e-commerce applications using Playwright and TypeScript, featuring advanced Demoblaze automation with luxury item detection and complete CI/CD integration.

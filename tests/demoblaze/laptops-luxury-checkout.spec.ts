@@ -37,7 +37,7 @@ test.describe('Demoblaze - Laptops Luxury Checkout Flow', () => {
 
   // Add more tests here for additional scenarios
   
-  test('Verify luxury laptop detection works correctly', async ({ page }) => {
+  test('Verify luxury laptop detection works correctly @regression', async ({ page }) => {
     const home = new DemoblazeHomePage(page);
     const cart = new DemoblazeCartPage(page);
     
@@ -57,7 +57,7 @@ test.describe('Demoblaze - Laptops Luxury Checkout Flow', () => {
     console.log('Luxury detection verified successfully!');
   });
 
-  test('Complete checkout with multiple items', async ({ page }) => {
+  test('Complete checkout with multiple items @regression', async ({ page }) => {
     const home = new DemoblazeHomePage(page);
     const cart = new DemoblazeCartPage(page);
     const checkout = new DemoblazeCheckoutPage(page);
@@ -106,7 +106,7 @@ test.describe('Demoblaze - Laptops Luxury Checkout Flow', () => {
     await checkout.verifyConfirmation();
   });
 
-  test('Handle form validation scenarios', async ({ page }) => {
+  test('Handle form validation scenarios @regression', async ({ page }) => {
     const home = new DemoblazeHomePage(page);
     const cart = new DemoblazeCartPage(page);
     const checkout = new DemoblazeCheckoutPage(page);
