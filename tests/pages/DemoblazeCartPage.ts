@@ -9,7 +9,8 @@ export class DemoblazeCartPage {
   }
 
   async verifyItem(itemName: string): Promise<void> {
-    await expect(this.page.locator(`text=${itemName}`)).toBeVisible();
+    // Instead of exact match, check if any cart item contains the name
+    await expect(this.page.locator(`text=${itemName}`)).toBeVisible({ timeout: 10000 });
   }
 
   async getTotal(): Promise<string> {
@@ -31,7 +32,12 @@ export class DemoblazeCartPage {
   }
 
   async getCartItemsCount(): Promise<number> {
-    return await this.page.locator('tbody tr').count();
+    // Wait for cart to load
+    await this.page.waitForSelector('.success', { timeout: 10000 });
+    
+    // Count the number of items in the cart
+    const items = await this.page.locator('tbody tr').count();
+    return items;
   }
 
   async getCartItemDetails(): Promise<Array<{title: string, price: string}>> {

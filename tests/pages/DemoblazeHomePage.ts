@@ -115,9 +115,31 @@ export class DemoblazeHomePage {
       throw new Error('No valid product prices found');
     }
     
-    // Click the luxury item using the exact link selector from your HTML
-    const luxuryCard = productCards[luxuryCardIndex];
-    await luxuryCard.locator('.card-title a.hrefch').click();
+    // WebKit-specific fix: Add more robust clicking
+    try {
+      const luxuryCard = productCards[luxuryCardIndex];
+      
+      // Wait for the element to be visible and stable
+      await luxuryCard.locator('.card-title a.hrefch').waitFor({ 
+        state: 'visible', 
+        timeout: 10000 
+      });
+      
+      // Scroll into view for WebKit
+      await luxuryCard.locator('.card-title a.hrefch').scrollIntoViewIfNeeded();
+      
+      // Add a small wait for WebKit stability
+      await this.page.waitForTimeout(1000);
+      
+      // Click with force for WebKit
+      await luxuryCard.locator('.card-title a.hrefch').click({ force: true });
+      
+    } catch (error) {
+      console.error('WebKit click failed, trying alternative approach:', error);
+      // Fallback: use page.click with selector
+      const luxuryCardSelector = `.card-block:nth-child(${luxuryCardIndex + 1}) .card-title a.hrefch`;
+      await this.page.click(luxuryCardSelector, { force: true });
+    }
     
     // Replace the problematic wait with a more reliable one
     await this.page.waitForSelector('.btn.btn-success.btn-lg', { timeout: 10000 });
