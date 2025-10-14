@@ -1,0 +1,32 @@
+{
+  "validAddress": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "address": "123 Main Street",
+    "city": "New York",
+    "state": "NY",
+    "zipCode": "10001",
+    "country": "US",
+    "phone": "+1234567890"
+  },
+  "internationalAddress": {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "address": "456 Oak Avenue",
+    "city": "Toronto",
+    "state": "ON",
+    "zipCode": "M5H 2N2",
+    "country": "CA",
+    "phone": "+14165551234"
+  },
+  "invalidAddress": {
+    "firstName": "",
+    "lastName": "Test",
+    "address": "",
+    "city": "",
+    "state": "",
+    "zipCode": "",
+    "country": "",
+    "phone": ""
+  }
+}

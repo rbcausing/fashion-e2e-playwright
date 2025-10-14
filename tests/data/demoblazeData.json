@@ -1,0 +1,35 @@
+{
+  "categories": ["Laptops", "Phones", "Monitors"],
+  "checkout": {
+    "name": "Test User",
+    "country": "USA",
+    "city": "New York",
+    "card": "4111111111111111",
+    "month": "12",
+    "year": "2026"
+  },
+  "luxuryItems": {
+    "laptops": {
+      "expectedLuxuryItem": "Sony vaio i7",
+      "minPrice": 790
+    }
+  },
+  "testScenarios": {
+    "validOrder": {
+      "name": "John Doe",
+      "country": "United States", 
+      "city": "New York",
+      "creditCard": "1234567812345678",
+      "month": "12",
+      "year": "2025"
+    },
+    "internationalOrder": {
+      "name": "Jane Smith",
+      "country": "Canada",
+      "city": "Toronto", 
+      "creditCard": "9876543210987654",
+      "month": "06",
+      "year": "2026"
+    }
+  }
+}

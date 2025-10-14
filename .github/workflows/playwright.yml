@@ -1,0 +1,187 @@
+name: Demoblaze Playwright Tests
+
+on:
+  push:
+    branches: [ main, develop, master ]
+  pull_request:
+    branches: [ main, develop, master ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  demoblaze-smoke-tests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps ${{ matrix.browser }}
+    
+    - name: Run Demoblaze Smoke Tests
+      run: npx playwright test tests/demoblaze/laptops-luxury-checkout.spec.ts --project=${{ matrix.browser }} --grep="@smoke"
+      env:
+        BASE_URL: https://www.demoblaze.com
+        HEADLESS: true
+        TIMEOUT: 30000
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: demoblaze-smoke-results-${{ matrix.browser }}
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 30
+
+  demoblaze-full-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    needs: demoblaze-smoke-tests
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps ${{ matrix.browser }}
+    
+    - name: Run Demoblaze Full Test Suite
+      run: npx playwright test tests/demoblaze/ --project=${{ matrix.browser }}
+      env:
+        BASE_URL: https://www.demoblaze.com
+        HEADLESS: true
+        TIMEOUT: 30000
+        RETRIES: 2
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: demoblaze-full-results-${{ matrix.browser }}
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 30
+
+  demoblaze-mobile-tests:
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    
+    - name: Run Demoblaze Mobile Tests
+      run: npx playwright test tests/demoblaze/laptops-luxury-checkout.spec.ts --project="Mobile Chrome"
+      env:
+        BASE_URL: https://www.demoblaze.com
+        HEADLESS: true
+        TIMEOUT: 30000
+    
+    - name: Upload mobile test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: demoblaze-mobile-results
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 30
+
+  demoblaze-regression:
+    timeout-minutes: 90
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    
+    - name: Run All Demoblaze Tests
+      run: npx playwright test --grep="@regression|@smoke"
+      env:
+        BASE_URL: https://www.demoblaze.com
+        HEADLESS: true
+        TIMEOUT: 30000
+        RETRIES: 3
+        WORKERS: 2
+    
+    - name: Upload regression test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: demoblaze-regression-results
+        path: |
+          test-results/
+          playwright-report/
+        retention-days: 30
+
+  notify-results:
+    runs-on: ubuntu-latest
+    needs: [demoblaze-smoke-tests, demoblaze-full-tests]
+    if: always()
+    
+    steps:
+    - name: Notify test completion
+      run: |
+        if [ "${{ needs.demoblaze-smoke-tests.result }}" == "success" ] && [ "${{ needs.demoblaze-full-tests.result }}" == "success" ]; then
+          echo "✅ All Demoblaze tests passed!"
+        else
+          echo "❌ Some Demoblaze tests failed. Check the artifacts for details."
+        fi

@@ -1,0 +1,26 @@
+{
+  "validUser": {
+    "email": "testuser@example.com",
+    "password": "TestPassword123!",
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "+1234567890"
+  },
+  "invalidUser": {
+    "email": "invalid@example.com",
+    "password": "WrongPassword123!"
+  },
+  "newUser": {
+    "email": "newuser@example.com",
+    "password": "NewPassword123!",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "phone": "+1987654321"
+  },
+  "guestUser": {
+    "firstName": "Guest",
+    "lastName": "User",
+    "email": "guest@example.com",
+    "phone": "+1111111111"
+  }
+}

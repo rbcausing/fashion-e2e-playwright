@@ -1,0 +1,40 @@
+{
+  "name": "fashion-e2e-playwright",
+  "version": "1.0.0",
+  "description": "E-commerce E2E testing with Playwright and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:codegen": "playwright codegen",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:shopping": "playwright test tests/shopping/",
+    "test:user": "playwright test tests/user/",
+    "test:product": "playwright test tests/product/",
+    "test:demoblaze": "playwright test -g demoblaze",
+    "test:demoblaze:smoke": "playwright test -g @smoke",
+    "test:demoblaze:ui": "playwright test --ui -g demoblaze",
+    "test:demoblaze:chromium": "playwright test --project=chromium -g demoblaze",
+    "test:demoblaze:firefox": "playwright test --project=firefox -g demoblaze",
+    "test:demoblaze:webkit": "playwright test --project=webkit -g demoblaze",
+    "test:demoblaze:mobile": "playwright test --project=mobile-chrome -g demoblaze",
+    "test:jenkins": "playwright test --reporter=html,junit --retries=2",
+    "test:jenkins:smoke": "playwright test --grep @smoke --reporter=html,junit --retries=2",
+    "test:jenkins:full": "playwright test --reporter=html,junit --retries=2",
+    "test:jenkins:regression": "playwright test --grep @regression --reporter=html,junit --retries=3",
+    "test:jenkins:report": "playwright show-report && echo 'HTML report generated in playwright-report/'"
+  },
+  "keywords": ["playwright", "e2e", "testing", "e-commerce", "typescript"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "featuredProducts": [
+    {
+      "id": "prod-001",
+      "name": "Classic White T-Shirt",
+      "price": "$19.99",
+      "category": "Tops",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["White", "Black", "Navy"],
+      "rating": 4.5,
+      "inStock": true
+    },
+    {
+      "id": "prod-002",
+      "name": "Denim Jeans",
+      "price": "$59.99",
+      "category": "Bottoms",
+      "sizes": ["28", "30", "32", "34", "36"],
+      "colors": ["Blue", "Black"],
+      "rating": 4.2,
+      "inStock": true
+    },
+    {
+      "id": "prod-003",
+      "name": "Running Sneakers",
+      "price": "$89.99",
+      "category": "Shoes",
+      "sizes": ["7", "8", "9", "10", "11"],
+      "colors": ["White", "Black", "Red"],
+      "rating": 4.8,
+      "inStock": true
+    }
+  ],
+  "outOfStockProduct": {
+    "id": "prod-004",
+    "name": "Limited Edition Hoodie",
+    "price": "$79.99",
+    "category": "Tops",
+    "sizes": ["S", "M", "L"],
+    "colors": ["Gray"],
+    "rating": 4.7,
+    "inStock": false
+  },
+  "expensiveProduct": {
+    "id": "prod-005",
+    "name": "Designer Jacket",
+    "price": "$299.99",
+    "category": "Outerwear",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Brown"],
+    "rating": 4.9,
+    "inStock": true
+  }
+}
